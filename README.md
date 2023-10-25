@@ -91,18 +91,19 @@ For more examples and ideas, visit:
 Este container es algo inútil pero divertido :rolf: Basado en este [repo](https://hub.docker.com/r/wernight/funbox).
 
 ```sh
-$ docker run --rm -it wernight/funbox nyancat 
+docker run --rm -it wernight/funbox nyancat 
 ```
 
 En [dockerhub](https://hub.docker.com/r/wernight/funbox).
 
-### 02.snake 
+### 02.snake
 
 Desde este [repo](https://github.com/DyegoCosta/snake-game).
 
 ```sh
-$ docker run -ti dyego/snake-game
+docker run -ti dyego/snake-game
 ```
+
 Una aplicación muy simple, pero que nos sirve para ver como se puede correr una aplicación en docker. En este caso un snake game.
 
 ### 03.web
@@ -124,17 +125,24 @@ Si lo corremos con `docker compose up -d`, el contenedor se va a correr en segun
 
 ```bash
 cd 04.resumir
-docker build . -t resumir:latest
-docker run --name resumir -it resumir:latest
-docker run --rm -v data:/app/data -w /app  --name resumir -i -t resumir:latest
+docker compose build
+docker compose up
 ```
 
-Revisenmos la última: `docker run --rm -v data:/app/data -w /app  --name resumir -i -t resumir:latest`
+- docker compose build -> construye la imagen
+- docker compose up -> corre el contenedor
 
-- --rm -> remove
-- -v -> volume
-- -w -> working directory
-- --name -> nombre
+Revisando el docker compose vemos:
+
+```yml
+services:
+  web:
+    # Imagen que va a construir (está en la carpeta actual)
+    build: .
+    # Vincular carpetas en la computadora local con carpetas en el contenedor
+    volumes:
+      - ./data:/app/data
+```
 
 ## Ideas
 
