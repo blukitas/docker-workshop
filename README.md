@@ -123,10 +123,18 @@ Si lo corremos con `docker compose up -d`, el contenedor se va a correr en segun
 ### 04.resumir
 
 ```bash
-cd 03.resumir
+cd 04.resumir
 docker build . -t resumir:latest
 docker run --name resumir -it resumir:latest
+docker run --rm -v data:/app/data -w /app  --name resumir -i -t resumir:latest
 ```
+
+Revisenmos la última: `docker run --rm -v data:/app/data -w /app  --name resumir -i -t resumir:latest`
+
+- --rm -> remove
+- -v -> volume
+- -w -> working directory
+- --name -> nombre
 
 ## Ideas
 

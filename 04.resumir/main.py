@@ -7,7 +7,7 @@ config = {
     "load_in_8bit": False,
     "embedding": EMB_SBERT_MPNET_BASE,
     "llm": LLM_FLAN_T5_BASE,
-    "pdf_path": "./data/example.pdf",
+    "pdf_path": "/app/data/example.pdf",
 }
 
 # Initialize PdfQA
@@ -23,7 +23,7 @@ pdfqa.retreival_qa_chain()
 
 # Query the model
 # question = "how do you summarize the content of the book"
-with open("./data/questions.txt") as f:
+with open("/app/data/questions.txt") as f:
     # Until I get to the end of the file, read by line
     answers = []
     for question in f:
@@ -32,7 +32,7 @@ with open("./data/questions.txt") as f:
         answers.append(f"answer: {answer}\n")
         answers.append(f"documents: {documents}\n")
 
-    with open("./data/answers.txt", "w") as f:
+    with open("/app/data/answers.txt", "w") as f:
         for i in answers:
             f.write(i)
 
