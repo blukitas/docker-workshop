@@ -216,28 +216,36 @@ class PdfQA:
         """
         creates vector db for the embeddings and persists them or loads a vector db from the persist directory
         """
+        print("vector_db_pdf")
         pdf_path = self.config.get("pdf_path", None)
         persist_directory = self.config.get("persist_directory", None)
         if persist_directory and os.path.exists(persist_directory):
             ## Load from the persist db
+            print("Loading from persist directory")
             self.vectordb = Chroma(
                 persist_directory=persist_directory, embedding_function=self.embedding
             )
         elif pdf_path and os.path.exists(pdf_path):
+            print("Loading from pdf path")
             ## 1. Extract the documents
             loader = PDFPlumberLoader(pdf_path)
             documents = loader.load()
             ## 2. Split the texts
+            print("Splitting texts")
             text_splitter = CharacterTextSplitter(chunk_size=100, chunk_overlap=0)
+            print("Splitting docs")
             texts = text_splitter.split_documents(documents)
             # text_splitter = TokenTextSplitter(chunk_size=100, chunk_overlap=10, encoding_name="cl100k_base")  # This the encoding for text-embedding-ada-002
+            print("Splitting tokens")
             text_splitter = TokenTextSplitter(
                 chunk_size=100, chunk_overlap=10
             )  # This the encoding for text-embedding-ada-002
+            print("Splitting docus")
             texts = text_splitter.split_documents(texts)
 
             ## 3. Create Embeddings and add to chroma store
             ##TODO: Validate if self.embedding is not None
+            print("Creating embeddings")
             self.vectordb = Chroma.from_documents(
                 documents=texts,
                 embedding=self.embedding,
