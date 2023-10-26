@@ -9,7 +9,7 @@
   - [02.snake](#02snake)
   - [03.web](#03web)
   - [04.resumir](#04resumir)
-- [Ideas](#ideas)
+- [Resources](#resources)
 
 ## Prerequisitos
 
@@ -111,13 +111,15 @@ Una aplicación muy simple, pero que nos sirve para ver como se puede correr una
 Docker compose. Hay una otra forma de correr contenedores = docker compose. Esto nos permite correr varios contenedores a la vez. En este caso vamos a correr una aplicación web con angular.
 
 ```bash
-cd 03.web/angular
+cd 03.angular
 docker compose up
 ```
 
 Este contenedor va a correr en la computadora local en el puerto 4200. Para acceder a la aplicación web, vamos a tener que ir a [localhost:4200](http://localhost:4200/).
 
 Si lo paramos con `ctrl + c`, vamos a ver que el contenedor se detiene. Y si vamos a localhost:4200, no vamos a poder acceder a la aplicación web.
+
+La carpeta angular están todos los archivos de la aplicación web. Si queremos cambiar algo, podemos hacerlo en alguno de esos archivos (por ejemplo el index.html). Para ver los cambios en la aplicación web, tenemos que hacer `docker compose build`  y `docker compose up` de nuevo.
 
 Si lo corremos con `docker compose up -d`, el contenedor se va a correr en segundo plano.
 
@@ -129,8 +131,9 @@ docker compose build
 docker compose up
 ```
 
-- docker compose build -> construye la imagen
-- docker compose up -> corre el contenedor
+- `docker compose build` -> construye la imagen
+  - `docker compose build --no-cache` -> construye la imagen sin usar la cache
+- `docker compose up` -> corre el contenedor
 
 Revisando el docker compose vemos:
 
@@ -144,15 +147,37 @@ services:
       - ./data:/app/data
 ```
 
-## Ideas
+**Alert:** El contaniner no funciona. Pero pueden usar esto de otra forma:
 
-- Kahoot?
-- Review de 1 o 2 ideas generales (PPT)
-- Instalar docker desktop
-  - Quien no lo tiene instalado le va a tocar instalar
-- Docker -v
-- Docker help
-- Docker run hello-world
-- Docker web - Angular
-- Docker flask
-- Docker summary
+```sh
+# Create virtual env
+python -m venv venv
+# Activate virtual env
+source venv/bin/activate
+# Install dependencies
+pip install numpy scipy
+pip install torch==2.1.0
+pip install -r requirements.txt
+# Run
+python main.py
+```
+
+Hay dos archivos importantes:
+
+- data/example.pdf -> El archivo que el modelo va a leer.
+  - Necesitamos respetar el nombre
+  - Necesitamos respetar la extensión
+- data/questions.txt -> Las preguntas que el modelo va a responder.
+
+## Resources
+
+- [What Is Docker and Docker Container ?](https://www.edureka.co/blog/what-is-docker-container)
+  - [Deep dive](https://www.notion.so/Docker-Workshop-1219adc6fe134fd19de0b95e24a60062?pvs=21)
+- [Top Features of Docker](https://www.acte.in/top-features-of-docker-article/)
+- [Docker engine](https://docker.awsworkshop.io/0_introduction/10_docker_engine.html)
+- [Docker Architecture](https://www.youtube.com/watch?app=desktop&v=253o0hxwxm8&ab_channel=InvolveInInnovation)
+- **Docker vs. Virtual Machines**
+  - <https://cloudacademy.com/blog/docker-vs-virtual-machines-differences-you-should-know/>
+  - <https://geekflare.com/docker-vs-virtual-machine/>
+- [Mi resumen](https://www.notion.so/Docker-a249a4a02d624b78822c2f31a7fad436?pvs=21)
+  - Me pueden escribir en <lucasb_256@hotmail.com>
